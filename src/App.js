@@ -1,24 +1,31 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+
+    state = {
+        patient: {},
+    };
+
+    componentDidMount() {
+        fetch("URL here!!!!")
+            .then((response) => response.json())
+            .then((jsonResponse) => {
+                this.setState({patient: jsonResponse})
+            }).catch((err) => console.error(err));
+    }
+
   render() {
+      const {patient} = this.state;
+      const symptoms = patient.symptoms || {};
+      const personalData = patient.personalData || {};
+      const medicaments = patient.pharmaceuticals || [];
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+            <p>{symptoms}</p>
+            <p>{personalData}</p>
+            <p>{medicaments}</p>
         </header>
       </div>
     );
