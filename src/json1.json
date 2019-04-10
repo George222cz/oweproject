@@ -1,0 +1,109 @@
+﻿
+
+{
+    "diagnosis": "Crohnova choroba",
+    "minBonus": 10,
+    "maxMalus": 50,
+    "maxPrice": 5000,
+    "generators": [
+        {
+            "title": "PL",
+            "text": [
+                "Petr Čaloun",
+                "Josef Špaček",
+                "Vlastimil Kundera"
+            ]
+        },
+        {
+            "title": "Specialisté",
+            "text": [
+                "Není ve sledování",
+                "Kardiolog",
+                "Neuvedeno"
+            ]
+        },
+        {
+            "title": "RA",
+            "text": [
+                "Otec OK",
+                "Matka OK",
+                "Otec OK, bratr Crohnova choroba"
+            ]
+        },
+        {
+            "title": "AA",
+            "text": [
+                "Negativní",
+                "Pozitivní"
+            ]
+        },
+        {
+            "title": "SA+PA",
+            "text": [
+                "SPŠ Strojní, elektromechanick, žije s rodiči",
+                "Základní škola, zahradník, žije s přítelkyní"
+            ]
+        },
+        {
+            "title": "Tlak",
+            "min": 40,
+            "max": 130
+        },
+        {
+            "title": "Tep za minutu",
+            "min": 100,
+            "max": 150
+        },
+        {
+            "title": "Nynější onemocnění",
+            "text": [
+                "Poslední týden intenzivní bolesti břicha. Bolesti křečovité, proměnlivé intenzity, horší po jídle",
+                "Poslední týden intenzivní bolesti břicha. Proměnlivé intenzity, horší bez jídla"
+            ]
+        },
+        {
+            "title": "Objektivní onemocnění",
+            "text": [
+                "Pacient je při vědomí, orientovaný všemi kvalitami, bez klidové dušnosti, bez anémie, bez ikteru"
+            ]
+        },
+        {
+            "title": "CT Hrudníku",
+            "exam": true,
+            "show": false,
+            "malus": 10,
+            "price": 15000,
+            "text": [
+                "Bez nálezu",
+                "Malé těleso"
+            ]
+        },
+        {
+            "title": "RTG Břicha vstoje",
+            "exam": true,
+            "show": false,
+            "bonus": 10,
+            "price": 600,
+            "text": [
+                "Bez nálezu",
+                "Dilatace klíček tenkého střeva na 30 mm, žaludek naplněn tekutinou, v dolní a střední části bricha díra"
+            ],
+            "imageGroup": [
+                {
+                    "title": "RTG horního břicha",
+                    "images": [
+                        {
+                            "filename": "nativ01.jpg",
+                            "text": ""
+                        },
+                        {
+                            "filename": "nativ02.jpg",
+                            "text": ""
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
+
