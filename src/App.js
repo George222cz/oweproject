@@ -1,38 +1,38 @@
 import React, { Component } from 'react';
 import './App.css';
-import exampleJSON from './json1.json';
-console.log(exampleJSON);
+import Property from './Property';
+//import exampleJSON from './json1.json';
 
 class App extends Component {
-
-/*
     state = {
         patient: {},
-    };*/
-/*
+    };
+
     componentDidMount() {
-        fetch("URL here!!!!")
+        fetch("https://owe-kazu.herokuapp.com/api/rest/student")
             .then((response) => response.json())
             .then((jsonResponse) => {
+                console.log(jsonResponse);
                 this.setState({patient: jsonResponse})
             }).catch((err) => console.error(err));
-    }*/
-
-  /*  componentDidMount() {
-        this.setState({patient: exampleJSON});
-    }*/
+    }
 
   render() {
-   /*   const patient = this.state;
-      console.log(patient);
-      const  diagnosis = patient.diagnosis || {};*/
- /*     if(diagnosis==={}){
-          return (<div><p>fck!!!</p></div>);
-      }*/
+    const {patient} = this.state;
+
+    if (!patient.properties){
+        return <div>loading</div>
+    }
+
     return (
       <div className="App">
         <header className="App-header">
-            <h1>{exampleJSON.diagnosis}</h1>
+            <div>
+                <h1>{patient.diagnosis}</h1>
+                {patient.properties.map((item) =>
+                    <Property title = {item.title} text={item.text} />
+                )}
+            </div>
         </header>
       </div>
     );
