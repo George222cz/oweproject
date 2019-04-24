@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Property from './Property';
+import Template from './Template';
 //import exampleJSON from './json1.json';
 
 class App extends Component {
@@ -32,6 +33,7 @@ class App extends Component {
                 {patient.properties.map((item) =>
                     <Property title = {item.title} text={item.text} />
                 )}
+                <Template/>
             </div>
         </header>
       </div>
