@@ -1,39 +1,27 @@
 import React, { Component } from 'react';
 import './App.css';
-import Property from './Property';
-import Template from './Template';
+import {LandingPage, Teacher, Student} from './pages';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 //import exampleJSON from './json1.json';
 
-class App extends Component {
-    state = {
-        patient: {},
-    };
 
-    componentDidMount() {
-        fetch("https://owe-kazu.herokuapp.com/api/rest/student")
-            .then((response) => response.json())
-            .then((jsonResponse) => {
-                console.log(jsonResponse);
-                this.setState({patient: jsonResponse})
-            }).catch((err) => console.error(err));
-    }
+class App extends Component {
+
 
   render() {
-    const {patient} = this.state;
 
-    if (!patient.properties){
-        return <div>loading</div>
-    }
 
     return (
       <div className="App">
         <header className="App-header">
             <div>
-                <h1>{patient.diagnosis}</h1>
-                {patient.properties.map((item) =>
-                    <Property title = {item.title} text={item.text} />
-                )}
-                <Template/>
+                <BrowserRouter>
+                    <Switch>
+                        <Route exact path={'/'} component={LandingPage}/>
+                        <Route path={'/teacher'} component={Teacher}/>
+                        <Route path={'/student'} component={Student}/>
+                    </Switch>
+                </BrowserRouter>
             </div>
         </header>
       </div>
