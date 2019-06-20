@@ -15,6 +15,7 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
             <div>
+
                 <BrowserRouter>
                     <Switch>
                         <Route exact path={'/'} component={LandingPage}/>

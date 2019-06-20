@@ -1,5 +1,6 @@
 import React from 'react';
 import Property from "../Property";
+import Slider from "react-input-slider";
 
 class Student extends React.Component {
     state = {
@@ -24,10 +25,18 @@ class Student extends React.Component {
 
         return (
             <div>
-                <h1>{patient.diagnosis}</h1>
-                {patient.properties.map((item) =>
-                    <Property title = {item.title} text={item.text} />
-                )}
+                <div>
+                    <h1>{patient.diagnosis}</h1>
+                    {patient.properties.map((item) =>
+                        <Property title = {item.title} text={item.text} />
+                    )}
+                </div>
+                <p>Min/Max:</p>
+                <Slider
+                    axis="x"
+                    x={this.state.x}
+                    onChange={({ x }) => this.setState(state => ({ ...state, x }))}
+                />
             </div>
         );
     }
