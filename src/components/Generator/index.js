@@ -1,3 +1,3 @@
-import Generator from './Generator';
+import Generators from './Generators';
 
-export default Generator;
+export default Generators;

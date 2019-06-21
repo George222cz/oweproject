@@ -6,16 +6,11 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
 
 class App extends Component {
-
-
   render() {
-
-
     return (
       <div className="App">
         <header className="App-header">
             <div>
-
                 <BrowserRouter>
                     <Switch>
                         <Route exact path={'/'} component={LandingPage}/>
