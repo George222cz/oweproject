@@ -1,0 +1,7 @@
+.inlineP p{
+    display: inline
+}
+
+.inlineP input{
+    margin-right: 10px;
+}

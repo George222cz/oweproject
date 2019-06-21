@@ -1,0 +1,15 @@
+jsou 3 veci!!! : templaty, diagnosy a (random) pacienti (pacient=case=student :D) 
+
+POST create template - UCITEL pro vytvoøení (odeslání) templatu
+GET randomly generated patient - STUDENT - dostane random case=pacienta
+GET list of templates - UCITEL - vypsani vsech jiz vytvorenych templatu
+POST complete student case - STUDENT - odeslani odpovedi studenta(proto chcou pacient ID) a ta se sklada z diagnosy(kterou vyvodil) a ID templatu (pro porovnani)
+GET all of students completed cases - UCITEL - vypsani vsech splnenych cases neboli studentu
+GET patient with selected template query param  - STUDENT? - jako GET randomly generated patient ale WHERE templateID=="..."
+POST new diagnosis to codelist - UCITEL - pridani nove diagnosy do seznamu diagnos
+GET diagnosis codelist - UCITEL - pro vybrani z pridanych diagnos pri tvotbe templatu do policka diagnose
+GET codelist of String diagnosis - STUDENT - pro vybrani pri odpovedi na case
+GET template with given ID - UCITEL? - dostane template pomoci ID
+UPDATE diagnosis codelist item && UPDATE template - UCITEL - update urcite diagnosy nebo urciteho templatu
+images - to je sranec :D
+
