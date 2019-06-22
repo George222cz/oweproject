@@ -8,8 +8,8 @@ const Generators = (props) => {
             let titleId = `title-${idx}`, textId = `text-${idx}`, minId = `min-${idx}`, maxId = `max-${idx}`;
             let malusId = `malus-${idx}`, bonusId = `bonus-${idx}`, priceId = `price-${idx}`;
             return (
-                <div>
-                <div key={idx} style={{backgroundColor: '#5a5a5a'}}>
+                <div key={idx}>
+                <div style={{backgroundColor: '#5a5a5a'}}>
                     <label htmlFor={titleId}>{`Title #${idx + 1}`}</label>
                     <input type="text" name={titleId} data-id={idx} id={titleId} value={item.title} className="title"/>
                     {(item.type === 1) &&

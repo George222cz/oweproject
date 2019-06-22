@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import {LandingPage, Teacher, Student} from './pages';
+import {LandingPage, Teacher, Student,Template} from './pages';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 //import exampleJSON from './json1.json';
 
@@ -15,6 +15,7 @@ class App extends Component {
                     <Switch>
                         <Route exact path={'/'} component={LandingPage}/>
                         <Route path={'/teacher'} component={Teacher}/>
+                        <Route path={'/template'} component={Template}/>
                         <Route path={'/student'} component={Student}/>
                     </Switch>
                 </BrowserRouter>

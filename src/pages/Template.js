@@ -1,6 +1,6 @@
 import React from 'react';
-import Generators from "./components/Generator";
-import './Main.css';
+import Generators from "../components/Generator";
+import '../Main.css';
 import Dropdown from 'react-dropdown'
 import 'react-dropdown/style.css'
 
@@ -41,10 +41,11 @@ export default class Template extends React.Component {
         this.setState({selected: option});
     };
 
+    handleFormSubmit = (e) => { e.preventDefault();};
+
     handleSubmit = (e) => {
-        e.preventDefault();
         console.log(this.state);
-        alert(JSON.stringify(this.state.data));
+        alert(JSON.stringify(this.state));
         //console.log(this.state.data);
     };
 
@@ -70,7 +71,7 @@ export default class Template extends React.Component {
         const defaultOption = this.state.selected;
         return (
         <div className="inlineP">
-            <form onSubmit={this.handleSubmit} onChange={this.handleChange} >
+            <form onSubmit={this.handleFormSubmit} onChange={this.handleChange} >
                 <div>
                     <h2>Create new template</h2>
                     <div style={{display: 'inline-flex'}}>
@@ -98,7 +99,7 @@ export default class Template extends React.Component {
                     </div>
                 </div>
                 <p>{defaultOption.value}</p>
-                <button>Submit</button>
+                <button onClick={this.handleSubmit}>Submit</button>
             </form>
         </div>
         );
