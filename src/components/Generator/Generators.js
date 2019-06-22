@@ -15,7 +15,7 @@ const Generators = (props) => {
                     {(item.type === 1) &&
                     <div>
                         <label htmlFor={textId}>Text: </label>
-                        <input type="text" name={textId} data-id={idx} id={textId} value={item.text} className="text"/>
+                        <input type="text" name={textId} data-id={idx} id={textId} value={item.text} className="text" placeholder={"Použijte ';' pro rozdělení"}/>
                     </div>
                     }
                     {(item.type === 2) &&

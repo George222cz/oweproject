@@ -20,6 +20,32 @@ export default class Template extends React.Component {
         //this.handleOnChange = this.handleOnChange.bind(this);
     }
 
+    getJson = () => {
+        const state = this.state;
+        let template = '{"diagnosis": "'+state.selected.value+'", "minBonus": '+state.minBonus+', "maxMalus": '+state.maxMalus+', "maxPrice": '+state.maxPrice+', ';
+        let data = '"generators": [';
+        for(let i = 0; i<state.size; i += 1){
+            data += '{ "title": "'+state.data[i].title+'",';
+            if(state.data[i].exam){
+                // what is show????????????????????????????????
+                data += '"exam": true, "show": false, "malus": '+state.data[i].malus+', "bonus": '+state.data[i].bonus+', "price": '+state.data[i].price+',';
+            }
+            if(state.data[i].type===1){
+                let text = state.data[i].text.replace(new RegExp(';', 'g'), '","');
+                data += '"text": ["'+text+'"] }';
+            }
+            if(state.data[i].type===2){
+                data += '"min": '+state.data[i].min+', "max": '+state.data[i].max+'}';
+            }
+            if(i<state.size-1){
+                data += ',';
+            }
+        }
+        data += ']';
+        template += data+'}';
+        return template;
+    };
+
     componentDidMount() {
         fetch("https://owe-kazu.herokuapp.com/api/rest/student/diagnosis")
             .then((response) => response.json())
@@ -44,9 +70,16 @@ export default class Template extends React.Component {
     handleFormSubmit = (e) => { e.preventDefault();};
 
     handleSubmit = (e) => {
-        console.log(this.state);
-        alert(JSON.stringify(this.state));
-        //console.log(this.state.data);
+        let body = this.getJson();
+        alert(body);
+    /*    fetch("https://owe-kazu.herokuapp.com/api/rest/admin/template", {
+            method: 'post',
+            headers: {
+                "Content-type": "application/json",
+            },
+            body: body,
+        }).catch((e) => console.log(e));*/
+        this.props.history.push('/teacher')
     };
 
     handleChange = (e) => {
@@ -67,8 +100,6 @@ export default class Template extends React.Component {
 
     render() {
         const {data} = this.state;
-        const options = this.state.diagnoses;
-        const defaultOption = this.state.selected;
         return (
         <div className="inlineP">
             <form onSubmit={this.handleFormSubmit} onChange={this.handleChange} >
@@ -77,7 +108,7 @@ export default class Template extends React.Component {
                     <div style={{display: 'inline-flex'}}>
                         <p>diagnosis: </p>
                         <div style={{marginLeft: '4%', fontSize: '1em'}}>
-                        <Dropdown options={options} onChange={this._onSelect} value={defaultOption} placeholder="Select an option" />
+                        <Dropdown options={this.state.diagnoses} onChange={this._onSelect} value={this.state.selected} placeholder="Select an option" />
                         </div>
                     </div>
                     <p style={{marginLeft: '20px'}}>maxMalus: </p>
@@ -91,14 +122,13 @@ export default class Template extends React.Component {
                     <p>add new generator: </p>
                     <button onClick={() => this.addGenerator(1)}>Add generator1</button>
                     <button onClick={() => this.addGenerator(2)}>Add generator2</button>
-                    <button onClick={() => this.addGenerator(3)}>Add generator3</button>
+                    <button onClick={() => this.addGenerator(3)}>Add generator3 (WIP)</button>
                     <br></br>
                     <br></br>
                     <div>
                         <Generators data={data} handleSwitch={this.handleSwitch}/>
                     </div>
                 </div>
-                <p>{defaultOption.value}</p>
                 <button onClick={this.handleSubmit}>Submit</button>
             </form>
         </div>
