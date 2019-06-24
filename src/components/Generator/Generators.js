@@ -10,8 +10,8 @@ const Generators = (props) => {
             return (
                 <div key={idx}>
                 <div style={{backgroundColor: '#5a5a5a'}}>
-                    <label htmlFor={titleId}>{`Title #${idx + 1}`}</label>
-                    <input type="text" name={titleId} data-id={idx} id={titleId} value={item.title} className="title"/>
+                    <label htmlFor={titleId}>Titulek: </label>
+                    <input type="text" name={titleId} data-id={idx} id={titleId} value={item.title} className="title" required/>
                     {(item.type === 1) &&
                     <div>
                         <label htmlFor={textId}>Text: </label>
@@ -21,9 +21,9 @@ const Generators = (props) => {
                     {(item.type === 2) &&
                     <div>
                         <label htmlFor={minId}>Min: </label>
-                        <input type="text" name={minId} data-id={idx} id={minId} value={item.min} className="min"/>
+                        <input type="number" name={minId} data-id={idx} id={minId} value={item.min} className="min" min={0} required/>
                         <label htmlFor={maxId}>Max: </label>
-                        <input type="text" name={maxId} data-id={idx} id={maxId} value={item.max} className="max"/>
+                        <input type="number" name={maxId} data-id={idx} id={maxId} value={item.max} className="max" min={0} required/>
                     </div>
                     }
                     {(item.type === 3) &&
@@ -31,16 +31,16 @@ const Generators = (props) => {
                         <p>Images: </p>
                     </div>
                     }
-                    <label htmlFor={'exam'}>Exam: </label>
+                    <label htmlFor={'exam'}>Zkouška: </label>
                     <Switch onChange={props.handleSwitch(item)} id={'exam'} checked={item.exam}/>
                     {(item.exam) &&
                     <div>
                         <label htmlFor={malusId}>Malus: </label>
-                        <input type="text" name={malusId} data-id={idx} id={malusId} value={item.malus} className="malus"/>
+                        <input type="number" name={malusId} data-id={idx} id={malusId} value={item.malus} className="malus" min={0}/>
                         <label htmlFor={bonusId}>Bonus: </label>
-                        <input type="text" name={bonusId} data-id={idx} id={bonusId} value={item.bonus} className="bonus"/>
+                        <input type="number" name={bonusId} data-id={idx} id={bonusId} value={item.bonus} className="bonus" min={0}/>
                         <label htmlFor={priceId}>Price: </label>
-                        <input type="text" name={priceId} data-id={idx} id={priceId} value={item.price} className="price"/>
+                        <input type="number" name={priceId} data-id={idx} id={priceId} value={item.price} className="price" min={0}/>
                     </div>
                     }
                 </div>

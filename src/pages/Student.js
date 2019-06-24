@@ -1,6 +1,5 @@
 import React from 'react';
 import Property from "../Property";
-import Slider from "react-input-slider";
 import Dropdown from 'react-dropdown'
 import 'react-dropdown/style.css'
 
@@ -55,11 +54,27 @@ class Student extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault();
         let state = this.state;
-        if(state.bonus<state.patient.minBonus || state.malus>state.patient.maxMalus || state.price>state.patient.maxPrice){
-            alert("smůla");
+        if(state.selected.value===''){
+            alert('vyplňte diagnozu');
+        }else {
+            if (state.bonus < state.patient.minBonus || state.malus > state.patient.maxMalus || state.price > state.patient.maxPrice) {
+                alert("smůla");
+            }
+            let body = '{"diagnosis": "' + state.selected.value + '", "exams": ["' + state.patient.templateId + '"]}';
+            fetch("https://owe-kazu.herokuapp.com/api/rest/student/"+state.patient.id, {
+            method: 'post',
+            headers: {
+                "Content-type": "application/json",
+            },
+            body: body,
+            }).catch((e) => console.log(e));
+            this.props.history.push('/');
+            //alert(body);
         }
-        let body = '{"diagnosis": "'+state.selected.value+'", "exams": ["'+state.patient.templateId+'"]}';
-        alert(body);
+    };
+
+    handleBack = (e) => {
+        this.props.history.push('/');
     };
 
     render() {
@@ -72,14 +87,16 @@ class Student extends React.Component {
         return (
             <div>
                 <div>
+                    <h2>Student</h2>
                     <div style={{backgroundColor: '#5a5a5a'}}>
                         <div>
                             <p>minBonus: {this.state.bonus}/{patient.minBonus}</p><p>maxMalus: {this.state.malus}/{patient.maxMalus}</p><p>maxPrice: {this.state.price}/{patient.maxPrice}</p>
                         </div>
                         <div>
-                            <p>diagnosa:</p>
+                            <p>diagnoza:</p>
                             <Dropdown options={this.state.diagnoses} onChange={this._onSelect} value={this.state.selected} placeholder="Select an option" />
-                            <button onClick={this.handleSubmit}>Submit</button>
+                            <button onClick={this.handleBack}>Zpět</button>
+                            <button onClick={this.handleSubmit}>Odeslat</button>
                         </div>
                     </div>
                     {patient.properties.map((item) =>
@@ -89,20 +106,14 @@ class Student extends React.Component {
                             }
                             {(item.exam) &&
                                 <div>
-                                    <p>{item.title}</p>
+                                    <p>Titulek: {item.title}</p>
                                     <button onClick={() => this.handleExam(item)}>???</button>
+                                    <hr color="red" align="center" />
                                 </div>
                             }
                         </div>
                     )}
                 </div>
-
-                <p>Min/Max:</p>
-                <Slider
-                    axis="x"
-                    x={this.state.x}
-                    onChange={({ x }) => this.setState(state => ({ ...state, x }))}
-                />
             </div>
         );
     }

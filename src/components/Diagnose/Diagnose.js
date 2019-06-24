@@ -5,9 +5,9 @@ import React from 'react';
 
         <div>
 
-            <label htmlFor={'diagnose'}>New diagnose: </label>
+            <label htmlFor={'diagnose'}>Nová diagnóza: </label>
             <input type={"text"} name="diagnose" onChange={props.handleChange('definition')} id="diagnose" value={props.definition}/>
-            <button onClick={props.handleSubmit}>Submit</button>
+            <button onClick={props.handleSubmit}>Odeslat</button>
         </div>
     );
 };

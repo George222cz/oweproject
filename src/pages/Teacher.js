@@ -43,36 +43,56 @@ export default class Teacher extends React.Component {
     };
 
     handleSubmitDiagnose = () => {
-        console.log(this.diagnose);
-        fetch("https://owe-kazu.herokuapp.com/api/rest/admin/codelist/diagnosis", {
-            method: 'post',
-            headers: {
-                "Content-type": "application/json",
-            },
-            body: JSON.stringify(this.diagnose),
-        }).catch((e) => console.log(e));
-        this.diagnose.definition = '';
-        this.forceUpdate();
+        if(this.diagnose.definition!=='') {
+            fetch("https://owe-kazu.herokuapp.com/api/rest/admin/codelist/diagnosis", {
+                method: 'post',
+                headers: {
+                    "Content-type": "application/json",
+                },
+                body: JSON.stringify(this.diagnose),
+            }).catch((e) => console.log(e));
+            this.diagnose.definition = '';
+            this.forceUpdate();
+        }else{
+            alert("Vyplňte pole");
+        }
+    };
+
+    handleEdit = (item) => (e) => {
+        let edit = prompt("Upravte:", item.definition);
+        if(edit!=null){
+            let body = '{"definition": "'+edit+'"}';
+            fetch("https://owe-kazu.herokuapp.com/api/rest/admin/codelist/diagnosis/"+item.id, {
+                method: 'put',
+                headers: {
+                    "Content-type": "application/json",
+                },
+                body: body,
+            }).catch((e) => console.log(e));
+            item.definition = edit;
+            this.forceUpdate();
+        }
     };
 
     render() {
         return (
             <div>
-                <h2>Teacher</h2>
+                <h2>Učitel</h2>
                 <div style={{backgroundColor: '#5a5a5a'}}>
-                    <Link to={'/template'} className={'Button'}>Create new template</Link>
+                    <Link to={'/template'} className={'Button'}>Vytvořit nové schéma</Link>
                 </div>
                 <div style={{display: 'inline-flex'}}>
                 <div>
                     <div>
                     <Diagnose definition={this.diagnose.definition} handleChange={this.handleSetDiagnose} handleSubmit={this.handleSubmitDiagnose}/>
                         <table style={{minWidth: '100%'}}><tbody>
-                            <tr style={{backgroundColor: '#5a5a5a'}}><td>Diagnosis</td></tr>
-                            { this.state.diagnoses.map((item,key) => <tr key={key}><td>{item.definition}</td></tr>)}
+                            <tr style={{backgroundColor: '#5a5a5a'}}><td>Diagnóza</td><td>✎</td></tr>
+                            { this.state.diagnoses.map((item,key) => <tr key={key}><td>{item.definition}</td><td><button onClick={this.handleEdit(item)}>✎</button></td></tr>)}
                         </tbody></table>
                     </div>
                 </div>
                 <div style={{marginLeft: '10px'}}>
+                    <label htmlFor={'diagnose'}>Seznam schémat: </label>
                     <TemplateList/>
                     <div>
                         <table><tbody>

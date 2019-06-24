@@ -8,16 +8,15 @@ export default class Template extends React.Component {
     constructor () {
         super();
         this.state = {
-            size: 1,
+            size: 0,
             diagnoses: [],
             selected: {value: '', label: 'Select'},
             maxMalus: '',
             minBonus: '',
             maxPrice: '',
-            data: [{id: 0, type: 1, title: '', exam: false, max: '', min: '', malus: '', bonus: '', price: '',text: ''}]
+            data: [{id: 0, type: 0, title: '', exam: false, max: '', min: '', malus: null, bonus: null, price: null,text: ''}]
         };
         this._onSelect = this._onSelect.bind(this);
-        //this.handleOnChange = this.handleOnChange.bind(this);
     }
 
     getJson = () => {
@@ -56,30 +55,48 @@ export default class Template extends React.Component {
     }
 
     addGenerator = (type) => {
-        this.setState((prevState) => ({
-            data: [...prevState.data, {id: this.state.size,type: type, title:'', exam: false, max: '', min: '', malus: '', bonus: '', price: '', text:''}],
-            size: this.state.size+1
-        }));
+        if(this.state.size===0){
+            this.state.data[0].type = type;
+            this.setState({size: 1});
+        }else {
+            this.setState((prevState) => ({
+                data: [...prevState.data, {
+                    id: this.state.size,
+                    type: type,
+                    title: '',
+                    exam: false,
+                    max: '',
+                    min: '',
+                    malus: '',
+                    bonus: '',
+                    price: '',
+                    text: ''
+                }],
+                size: this.state.size + 1
+            }));
+        }
     };
 
     _onSelect (option) {
-        //console.log('You selected ', option.value);
         this.setState({selected: option});
     };
 
-    handleFormSubmit = (e) => { e.preventDefault();};
-
-    handleSubmit = (e) => {
-        let body = this.getJson();
-        alert(body);
-    /*    fetch("https://owe-kazu.herokuapp.com/api/rest/admin/template", {
-            method: 'post',
-            headers: {
-                "Content-type": "application/json",
-            },
-            body: body,
-        }).catch((e) => console.log(e));*/
-        this.props.history.push('/teacher')
+    handleFormSubmit = (e) => {
+        e.preventDefault();
+        if(this.state.selected.value!=='' && this.state.size!==0){
+            let body = this.getJson();
+        //    alert(body);
+            /*    fetch("https://owe-kazu.herokuapp.com/api/rest/admin/template", {
+                    method: 'post',
+                    headers: {
+                        "Content-type": "application/json",
+                    },
+                    body: body,
+                }).catch((e) => console.log(e));*/
+            this.props.history.push('/teacher')
+        }else{
+            alert("Vyplňte prosím celý formulář");
+        }
     };
 
     handleChange = (e) => {
@@ -98,38 +115,43 @@ export default class Template extends React.Component {
         this.forceUpdate();
     };
 
+    handleBack = (e) => {
+        this.props.history.push('/teacher');
+    };
+
     render() {
         const {data} = this.state;
         return (
         <div className="inlineP">
             <form onSubmit={this.handleFormSubmit} onChange={this.handleChange} >
                 <div>
-                    <h2>Create new template</h2>
+                    <h2>Vytvořit nové schéma</h2>
                     <div style={{display: 'inline-flex'}}>
-                        <p>diagnosis: </p>
+                        <p>Diagnóza: </p>
                         <div style={{marginLeft: '4%', fontSize: '1em'}}>
                         <Dropdown options={this.state.diagnoses} onChange={this._onSelect} value={this.state.selected} placeholder="Select an option" />
                         </div>
                     </div>
                     <p style={{marginLeft: '20px'}}>maxMalus: </p>
-                    <input type={"text"} name="maxMalus" id="maxMalus" value={data.maxMalus}/>
+                    <input type={"number"} name="maxMalus" id="maxMalus" value={this.state.maxMalus} required/>
                     <p>minBonus: </p>
-                    <input type={"text"} name="minBonus" id="minBonus" value={data.minBonus}/>
+                    <input type={"number"} name="minBonus" id="minBonus" value={this.state.minBonus} required/>
                     <p>maxPrice: </p>
-                    <input type={"text"} name="maxPrice" id="maxPrice" value={data.maxPrice}/>
+                    <input type={"number"} name="maxPrice" id="maxPrice" value={this.state.maxPrice} required/>
                 </div>
                 <div>
-                    <p>add new generator: </p>
-                    <button onClick={() => this.addGenerator(1)}>Add generator1</button>
-                    <button onClick={() => this.addGenerator(2)}>Add generator2</button>
-                    <button onClick={() => this.addGenerator(3)}>Add generator3 (WIP)</button>
+                    <p>Přidat generátor: </p>
+                    <button onClick={() => this.addGenerator(1)}>Textový generátor</button>
+                    <button onClick={() => this.addGenerator(2)}>Min/Max generátor</button>
+                    <button onClick={() => this.addGenerator(3)} disabled>Obrázkový generátor (WIP)</button>
                     <br></br>
                     <br></br>
-                    <div>
-                        <Generators data={data} handleSwitch={this.handleSwitch}/>
+                    <div>{ (this.state.size!==0) &&
+                        <Generators data={data} handleSwitch={this.handleSwitch}/>}
                     </div>
                 </div>
-                <button onClick={this.handleSubmit}>Submit</button>
+                <button onClick={this.handleBack}>Zpět</button>
+                <input type="submit" value={"Odeslat"}/>
             </form>
         </div>
         );

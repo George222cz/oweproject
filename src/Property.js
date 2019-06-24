@@ -15,7 +15,7 @@ export default class Property extends React.Component {
 
         return (
             <div>
-            <p>Title: {title}</p>
+            <p>Titulek: {title}</p>
             <p>Text: {text}</p>
             <hr color="red" align="center" />
             </div>
