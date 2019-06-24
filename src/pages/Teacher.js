@@ -66,7 +66,7 @@ export default class Teacher extends React.Component {
                 <div>
                     <div>
                     <Diagnose definition={this.diagnose.definition} handleChange={this.handleSetDiagnose} handleSubmit={this.handleSubmitDiagnose}/>
-                        <table><tbody>
+                        <table style={{minWidth: '100%'}}><tbody>
                             <tr style={{backgroundColor: '#5a5a5a'}}><td>Diagnosis</td></tr>
                             { this.state.diagnoses.map((item,key) => <tr key={key}><td>{item.definition}</td></tr>)}
                         </tbody></table>
